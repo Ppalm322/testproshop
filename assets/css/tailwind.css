@@ -1,1 +1,47 @@
-@import "tailwindcss";
+@import "tailwindcss" important;
+
+/* @layer utilities {
+    .flex {
+      display: flex !important;
+    }
+    .gap-4 {
+      gap: 1rem !important;
+    }
+    .underline {
+      text-decoration-line: underline !important;
+    }
+  } */
+
+@layer components {
+    .btn-primary {
+      border-radius: calc(infinity * 1px);
+      background-color: var(--color-violet-500);
+      padding-inline: --spacing(5);
+      padding-block: --spacing(2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-white);
+      box-shadow: var(--shadow-md);
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-violet-700);
+        }
+      }
+    }
+    /* .in-blue{
+      ml-50;
+      rounded-md;
+      bg-blue-500 ;
+      px-3 py-2 text-sm ;
+      font-semibold ;
+      text-white ;
+      shadow-lg ;
+      shadow-cyan-500/50;
+      focus:outline-none;
+    } */
+    
+  }
+/* @layer components{
+    .menu-button{
+        @apply bf-red=500 p3
+    }
+} */
