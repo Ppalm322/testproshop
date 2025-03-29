@@ -9,44 +9,32 @@
 
 // callApi();
 
-import axios from "axios";
-
-// const axios = require('axios/dist/node/axios.cjs'); // node
-
-
-
-
-
-
-
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export function useForm() {
-  const responseMessage = ref('');
+  const responseMessage = ref("");
 
-  const submitForm = async (name,Email,Phone,Type,Discription) => {
+  const submitForm = async (name, Email, Phone, Type, Discription) => {
     try {
-      const response = await fetch('http://localhost:3000/api/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name,Email,Phone,Type,Discription }),
+      const response = await fetch("http://127.0.0.1:8000", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, Email, Phone, Type, Discription }),
       });
 
       const result = await response.json();
       responseMessage.value = result.message;
 
-      console.log(name,Email,Phone,Type,Discription);
-
+      console.log(name, Email, Phone, Type, Discription);
     } catch (error) {
-      console.error('Error:', error);
-      responseMessage.value = 'Error submitting form';
+      console.error("Error:", error);
+      responseMessage.value = "Error submitting form";
       Discription = "error";
-      console.log(name,Email,Phone,Type,Discription);
+      console.log(name, Email, Phone, Type, Discription);
     }
   };
 
   return { responseMessage, submitForm };
-
 }
 
 // import { useForm, useField } from 'vee-validate'
@@ -73,39 +61,50 @@ export function useForm() {
 // sfd2@gmail.com
 // })
 
+// plugins/axios.js
 
+import axios from "axios";
+const API_URL = "https://dummyjson.com";
+// const API_URL = "http://127.0.0.1:8000";
+// http://127.0.0.1:8000
+export default defineNuxtPlugin((nuxtApp) => {
+  const api = axios.create({
+    baseURL: API_URL, // เปลี่ยนเป็น URL ของ API ของคุณ
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
+  // ตัวอย่างการตั้งค่าการดึงข้อมูล
+  nuxtApp.provide("axios", api);
+});
 
+// const API_URL = "https://dummyjson.com/products";
 
+//  async function getData() {
+//     try{
+//         const responst = await axios.get(API_URL)
+//         console.log("✅ GET:", responst.data);
+//     }
+//     catch (error) {
+//         console.error("❌ Error:", error);
+//       }
 
+//  }
+// //  getData();
+// async function createData() {
+//     try {
+//       const response = await axios.post(API_URL, {
+//         title: "Axios in Node.js",
+//         body: "เรียนรู้การใช้งาน Axios ใน Node.js",
+//         userId: 1,
+//       });
+//       console.log("✅ POST:", response.data);
+//     } catch (error) {
+//       console.error("❌ Error:", error);
+//     }
+//   }
 
-
-const API_URL = "https://dummyjson.com/products";
-
- async function getData() {
-    try{
-        const responst = await axios.get(API_URL)
-        console.log("✅ GET:", responst.data);
-    }
-    catch (error) {
-        console.error("❌ Error:", error);
-      }
-
- }
-//  getData();
-async function createData() {
-    try {
-      const response = await axios.post(API_URL, {
-        title: "Axios in Node.js",
-        body: "เรียนรู้การใช้งาน Axios ใน Node.js",
-        userId: 1,
-      });
-      console.log("✅ POST:", response.data);
-    } catch (error) {
-      console.error("❌ Error:", error);
-    }
-  }
-  
 //   // 3️⃣ ฟังก์ชัน PUT (อัปเดตข้อมูลทั้งหมด)
 //   async function updateData(id) {
 //     try {
@@ -119,7 +118,7 @@ async function createData() {
 //       console.error("❌ Error:", error);
 //     }
 //   }
-  
+
 //   // 4️⃣ ฟังก์ชัน PATCH (อัปเดตบางส่วน)
 //   async function patchData(id) {
 //     try {
@@ -131,7 +130,7 @@ async function createData() {
 //       console.error("❌ Error:", error);
 //     }
 //   }
-  
+
 //   // 5️⃣ ฟังก์ชัน DELETE (ลบข้อมูล)
 //   async function deleteData(id) {
 //     try {
@@ -141,9 +140,9 @@ async function createData() {
 //       console.error("❌ Error:", error);
 //     }
 //   }
-  
+
 //   // 🚀 ทดสอบฟังก์ชันต่างๆ
-  await getData();     // GET
+// await getData();     // GET
 //   await createData();  // POST
 //   await updateData(1); // PUT
 //   await patchData(1);  // PATCH
